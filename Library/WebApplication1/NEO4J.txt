@@ -1,0 +1,18 @@
+Entiteti:
+Korisnik-> Username, password, ime, prezime, mail, broj_telefona, role
+Knjiga-> Naziv, Zanr, Godina_Izadavanja, Opis
+Autor-> Ime, Prezime, Godina_Rodjenja, Kratka_Biografija
+Biblioteka-> Naziv, Adresa
+
+Relacije:
+Iznajmljena-> (Korisnik, Knjiga) Datum_Iznajmljivanja
+Napisao-> (Autora, Knjigu)
+Poseduje-> (Biblioteka, Knjiga) broj_primeraka, broj_iznajmljenih
+Uclanjen-> (Korisnika, Biblioteka)
+Ocenjena-> (Korisnika, Knjiga) ocena, komentar
+
+Funkcije:
+Korisnik -> SignUp, Login, Promene podataka, Brisanje naloga, Promeni Lozinku, Vrati podatke;
+Knjiga -> Crud
+Autor -> Crud
+Biblioteka -> CRUD, 
