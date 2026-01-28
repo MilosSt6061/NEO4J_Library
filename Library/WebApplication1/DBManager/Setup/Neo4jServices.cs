@@ -1,7 +1,6 @@
-using Neo4J_Movies.Configurations;
 using Neo4jClient;
 
-namespace Neo4j_Movies.Services
+namespace Library.DBManager.Setup
 {
     public class Neo4jService
     {
@@ -12,10 +11,10 @@ namespace Neo4j_Movies.Services
         public Neo4jService(Neo4jConfiguration config)
         {
             config.Validate();
-        
+
             _client = new BoltGraphClient(
-                new Uri(config.uri!), 
-                config.username, 
+                new Uri(config.uri!),
+                config.username,
                 config.password
             );
         }
@@ -36,7 +35,7 @@ namespace Neo4j_Movies.Services
             finally
             {
                 _connectionLock.Release();
-            }   
+            }
         }
 
         public async Task<IGraphClient> GetClientAsync()

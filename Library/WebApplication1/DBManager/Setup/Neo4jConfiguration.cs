@@ -1,5 +1,5 @@
 using DotNetEnv;
-namespace Neo4J_Movies.Configurations
+namespace Library.DBManager.Setup
 {
     public class Neo4jConfiguration
     {
@@ -11,13 +11,13 @@ namespace Neo4J_Movies.Configurations
         {
             if (string.IsNullOrWhiteSpace(uri))
                 throw new InvalidOperationException("Neo4j URI is required");
-        
+
             if (string.IsNullOrWhiteSpace(username))
                 throw new InvalidOperationException("Neo4j Username is required");
-        
+
             if (string.IsNullOrWhiteSpace(password))
                 throw new InvalidOperationException("Neo4j Password is required");
-        }   
+        }
 
         public static Neo4jConfiguration Local => new()
         {
@@ -25,7 +25,7 @@ namespace Neo4J_Movies.Configurations
             username = Environment.GetEnvironmentVariable("NEO4J_USERNAME"),
             password = Environment.GetEnvironmentVariable("NEO4J_PASSWORD_LOCAL")
         };
-        
+
         public static Neo4jConfiguration Aura => new()
         {
             uri = Environment.GetEnvironmentVariable("NEO4J_URI_AURA"),

@@ -3,10 +3,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Neo4J_Movies.Configurations;
-using Neo4j_Movies.Services;
 using System.Text;
 using DotNetEnv;
+using Library.DBManager.Setup;
 
 Env.Load();
 var builder = WebApplication.CreateBuilder(args);
