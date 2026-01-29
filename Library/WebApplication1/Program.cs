@@ -7,11 +7,15 @@ using System.Text;
 using DotNetEnv;
 using Library.DBManager.Setup;
 
-Env.Load();
+Env.Load("DBManager/Setup/.env");
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSingleton<Neo4jService>();
+builder.Services.AddSingleton(Neo4jConfiguration.Local);
+
 builder.Services.AddScoped<KorisnikProvider>();
+builder.Services.AddScoped<BibliotekaProvider>();
 
 builder.Services.AddCors(options =>
 {
@@ -86,9 +90,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-builder.Services.AddSingleton<Neo4jService>();
-builder.Services.AddSingleton(Neo4jConfiguration.Local);
-
 builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
@@ -98,8 +99,6 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-var imagesPath = builder.Configuration["Storage:ImagesPath"];
 
 var app = builder.Build();
 
