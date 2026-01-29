@@ -7,11 +7,15 @@ using System.Text;
 using DotNetEnv;
 using Library.DBManager.Setup;
 
-Env.Load();
+Env.Load("DBManager/Setup/.env");
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSingleton<Neo4jService>();
+builder.Services.AddSingleton(Neo4jConfiguration.Local);
+
 // Add services to the container.
-builder.Services.AddScoped<KorisnikProvider>();
+//builder.Services.AddScoped<KorisnikProvider>();
+builder.Services.AddScoped<KnjigaProvider>();
 
 builder.Services.AddCors(options =>
 {
@@ -86,8 +90,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-builder.Services.AddSingleton<Neo4jService>();
-builder.Services.AddSingleton(Neo4jConfiguration.Local);
 
 builder.Services.AddAuthorization();
 
