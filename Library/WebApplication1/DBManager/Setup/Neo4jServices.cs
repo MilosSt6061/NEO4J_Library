@@ -12,7 +12,7 @@ namespace Library.DBManager.Setup
         {
             config.Validate();
 
-            _client = new BoltGraphClient(
+            _client = new GraphClient(
                 new Uri(config.uri!),
                 config.username,
                 config.password
