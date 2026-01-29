@@ -10,12 +10,13 @@ using Library.DBManager.Setup;
 Env.Load("DBManager/Setup/.env");
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddSingleton<Neo4jService>();
 builder.Services.AddSingleton(Neo4jConfiguration.Local);
 
 builder.Services.AddScoped<KorisnikProvider>();
 builder.Services.AddScoped<BibliotekaProvider>();
+builder.Services.AddScoped<KnjigaProvider>();
+builder.Services.AddScoped<AutorProvider>();
 
 builder.Services.AddCors(options =>
 {
@@ -89,11 +90,9 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
-
 builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
-//builder.WebHost.UseUrls("http://0.0.0.0:5000");
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
