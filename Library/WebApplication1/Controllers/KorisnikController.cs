@@ -172,7 +172,7 @@ namespace Cinema.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         [HttpDelete("DeleteAccount")]
         public async Task<IActionResult> DeleteAccount([FromBody] string username)
         {

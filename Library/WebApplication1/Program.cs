@@ -18,6 +18,10 @@ builder.Services.AddScoped<BibliotekaProvider>();
 builder.Services.AddScoped<KnjigaProvider>();
 builder.Services.AddScoped<AutorProvider>();
 
+builder.Services.AddScoped<OcenaProvider>();
+builder.Services.AddScoped<UclanjenProvider>();
+builder.Services.AddScoped<NapisaoProvider>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CORS", policy =>

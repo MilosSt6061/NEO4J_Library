@@ -37,7 +37,7 @@ namespace Library.DBManager.Providers
                     email = user.Email,
                     number = user.Number
                 })
-                .Return(a => a.As<dynamic>())
+                .Return(a => a.As<Korisnik>())
                 .ResultsAsync;
 
                 bool created = result.Single()._created;

@@ -19,7 +19,8 @@ namespace Library.Controllers
         {
             try
             {
-                return Ok(autorProvider.GetAllAutors());
+                var response = await autorProvider.GetAllAutors();
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -31,7 +32,8 @@ namespace Library.Controllers
         {
             try
             {
-                return Ok(autorProvider.GetAuthorsByName(ime));
+                var response = await autorProvider.GetAuthorsByName(ime);
+                return Ok(response);
             }
             catch (Exception ex)
             {
