@@ -54,7 +54,7 @@ namespace Library.DBManager.Providers
                 var client = await _service.GetClientAsync();
                 knjiga.id = Guid.NewGuid().ToString();
                 var count = await client.Cypher
-                    .Create("(k:Knjiga {id: $id, naziv: $naziv, zanr: $zanr, godinaIznavanja: $godinaIzdavanja, opis: $opis})")
+                    .Create("(k:Knjiga {id: $id, naziv: $naziv, zanr: $zanr, godinaIzdavanja: $godinaIzdavanja, opis: $opis})")
                     .WithParams(new
                     {
                         id = knjiga.id,
@@ -86,11 +86,11 @@ namespace Library.DBManager.Providers
             try
             {
                 var client = await _service.GetClientAsync();
-                var book = await client.Cypher
+                var count = await client.Cypher
                     .Match("(k:Knjiga)")
                     .Where("k.id is not null and k.id =~ $id")
                     .WithParam("id", knjiga.id)
-                    .Set("k.naziv = $naziv, k.zanr = $zanr, k.godinaIznavanja = $godinaIzdavanja, k.opis = $opis")
+                    .Set("k.naziv = $naziv, k.zanr = $zanr, k.godinaIzdavanja = $godinaIzdavanja, k.opis = $opis")
                     .WithParams(new
                     {
                         naziv = knjiga.naziv,
@@ -98,9 +98,9 @@ namespace Library.DBManager.Providers
                         godinaIzdavanja = knjiga.godinaIzdavanja,
                         opis = knjiga.opis
                     })
-                    .Return(k => k.As<Knjiga>())
+                    .Return(k => k.Count())
                     .ResultsAsync;
-                bool updated = book == knjiga;
+                bool updated = count.Single() == 1;
                 return new DBResponse
                 {
                     Success = updated,

@@ -86,7 +86,7 @@ namespace Library.DBManager.Providers
             try
             {
                 var client = await _service.GetClientAsync();
-                var author = await client.Cypher
+                var count = await client.Cypher
                     .Match("(a:Autor)")
                     .Where("a.id is not null and a.id =~ $id")
                     .WithParam("id", autor.id)
@@ -98,9 +98,9 @@ namespace Library.DBManager.Providers
                         godinaRodjenja = autor.godinaRodjenja,
                         biografija = autor.biografija
                     })
-                    .Return(a => a.As<Autor>())
+                    .Return(a => a.Count())
                     .ResultsAsync;
-                bool updated = author == autor;
+                bool updated = count.Single() == 1;
                 return new DBResponse
                 {
                     Success = updated,

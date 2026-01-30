@@ -1,25 +1,26 @@
 using Library.DBManager.Providers;
 using Library.Entities;
+using Library.Entities.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class KnjigaController : ControllerBase
+    public class OcenaController : ControllerBase
     {
-        KnjigaProvider knjigaProvider { get; set; }
-        public KnjigaController(KnjigaProvider knjigaProvider)
+        OcenaProvider ocenaProvider { get; set; }
+        public OcenaController(OcenaProvider ocenaProvider)
         {
-            this.knjigaProvider = knjigaProvider;
+            this.ocenaProvider = ocenaProvider;
         }
 
-        [HttpGet("ListaKnjiga")]
-        public async Task<IActionResult> ListaKnjiga()
+        [HttpGet("ListaOcena/{knjigaId}")]
+        public async Task<IActionResult> ListaOcena(string knjigaId)
         {
             try
             {
-                var response = await knjigaProvider.GetAllBooks();
+                var response = await ocenaProvider.GetAllOcenaByBook(knjigaId);
                 return Ok(response);
             }
             catch (Exception ex)
@@ -27,12 +28,12 @@ namespace Library.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet("ListaKnjiga/{naziv}")]
-        public async Task<IActionResult> ListaKnjiga(string naziv)
+        [HttpGet("KorisnikovaOcenaKnjige/{username}/{knjigaId}")]
+        public async Task<IActionResult> KorisnikovaOcenaKnjige(string username, string knjigaId)
         {
             try
             {
-                var response = await knjigaProvider.GetBooksByName(naziv);
+                var response = await ocenaProvider.GetUserOcenaOfBook(username, knjigaId);
                 return Ok(response);
             }
             catch (Exception ex)
@@ -40,12 +41,13 @@ namespace Library.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("KreirajKnjigu")]
-        public async Task<IActionResult> KreirajKnjigu([FromBody] Knjiga knjiga)
+
+        [HttpPost("KreirajOcenu")]
+        public async Task<IActionResult> KreirajOcenu([FromBody] OcenaDTO ocena)
         {
             try
             {
-                var response = await knjigaProvider.CreateKnjiga(knjiga);
+                var response = await ocenaProvider.CreateOcena(ocena);
                 if(response.Success) return Ok(response.Message);
                 else return BadRequest(response.Message);
             }
@@ -54,12 +56,12 @@ namespace Library.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPut("IzmeniKnjigu")]
-        public async Task<IActionResult> IzmeniKnjigu([FromBody] Knjiga knjiga)
+        [HttpPut("IzmeniOcenu")]
+        public async Task<IActionResult> IzmeniOcenu([FromBody] OcenaDTO ocena)
         {
             try
             {
-                var response = await knjigaProvider.UpdateKnjiga(knjiga);
+                var response = await ocenaProvider.UpdateOcena(ocena);
                 if(response.Success) return Ok(response.Message);
                 else return BadRequest(response.Message);
             }
@@ -68,12 +70,12 @@ namespace Library.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpDelete("ObrisiKnjigu/{id}")]
-        public async Task<IActionResult> ObrisiKnjigu(string id)
+        [HttpDelete("ObrisiOcenu/{username}/{knjigaId}")]
+        public async Task<IActionResult> ObrisiOcenu(string username, string knjigaId)
         {
             try
             {
-                var response = await knjigaProvider.DeleteKnjiga(id);
+                var response = await ocenaProvider.DeleteOcena(username, knjigaId);
                 if(response.Success) return Ok(response.Message);
                 else return BadRequest(response.Message);
             }

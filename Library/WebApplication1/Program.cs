@@ -20,6 +20,10 @@ builder.Services.AddScoped<AutorProvider>();
 builder.Services.AddScoped<IznajmljivanjeProvider>();
 builder.Services.AddScoped<PosedovanjeProvider>();
 
+builder.Services.AddScoped<OcenaProvider>();
+builder.Services.AddScoped<UclanjenProvider>();
+builder.Services.AddScoped<NapisaoProvider>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CORS", policy =>
