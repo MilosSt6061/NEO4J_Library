@@ -21,7 +21,8 @@ namespace Library.Controllers
         {
             try
             {
-                return Ok(bibliotekaProvider.GetLibrary(id));
+                var result = await bibliotekaProvider.GetLibrary(id);
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -46,11 +47,12 @@ namespace Library.Controllers
             }
         }
         [HttpGet("Lib_all")]
-        public IActionResult SviKorisnici()
+        public async Task<IActionResult> SviKorisnici()
         {
             try
             {
-                return Ok(bibliotekaProvider.GetLibraryList());
+                var result = await bibliotekaProvider.GetLibraryList();
+                return Ok(result);
             }
             catch (Exception ex)
             {

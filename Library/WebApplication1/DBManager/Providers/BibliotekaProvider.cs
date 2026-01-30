@@ -23,7 +23,7 @@ namespace Library.DBManager.Providers
                 .Create("(a:Biblioteka {id: $id, name: $name, address: $address})")
                 .WithParams(new
                 {
-                    id = lib.Id,
+                    id = Guid.NewGuid().ToString(),
                     name = lib.Naziv,
                     address = lib.Adresa
                 })
@@ -120,7 +120,7 @@ namespace Library.DBManager.Providers
                     .Match("(k:Biblioteka)")
                     .Where("k.id IS NOT NULL AND k.id =~ $id")
                     .WithParam("id", id)
-                    .Return(a => a.As<Biblioteka>())
+                    .Return(k => k.As<Biblioteka>())
                     .ResultsAsync;
 
                 var lib = result.FirstOrDefault();
@@ -140,7 +140,7 @@ namespace Library.DBManager.Providers
                 var client = await _service.GetClientAsync();
                 var result = await client.Cypher
                     .Match("(k:Biblioteka)")
-                    .Return(a => a.As<Biblioteka>())
+                    .Return(k => k.As<Biblioteka>())
                     .ResultsAsync;
 
                 var lista = result.ToList();

@@ -28,13 +28,13 @@ namespace Cinema.Controllers
             korisnikProvider = k;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("Podaci/{username}")]
         public async Task<IActionResult> VratiPodatke(string username)
         {
             try
             {
-                return Ok(korisnikProvider.UserData(username));
+                return Ok(await korisnikProvider.UserData(username));
             }
             catch (Exception ex)
             {
@@ -60,13 +60,13 @@ namespace Cinema.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         [HttpGet("SviKorisnici")]
-        public IActionResult SviKorisnici()
+        public async Task<IActionResult> SviKorisnici()
         {
             try
             {
-                return Ok(korisnikProvider.GetUserList());
+                return Ok(await korisnikProvider.GetUserList());
             }
             catch (Exception ex)
             {
@@ -134,7 +134,7 @@ namespace Cinema.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
+        //[Authorize]
         [HttpPut("EditAccount")]
         public async Task<IActionResult> EditAccount([FromBody] KorisnikDTO user)
         {
@@ -153,7 +153,7 @@ namespace Cinema.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
+        //[Authorize]
         [HttpPut("EditPassword")]
         public async Task<IActionResult> EditPassword([FromBody] string username, string oldPassword, string newPassword)
         {
@@ -172,7 +172,7 @@ namespace Cinema.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         [HttpDelete("DeleteAccount")]
         public async Task<IActionResult> DeleteAccount([FromBody] string username)
         {

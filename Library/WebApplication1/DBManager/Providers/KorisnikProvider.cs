@@ -37,7 +37,7 @@ namespace Library.DBManager.Providers
                     email = user.Email,
                     number = user.Number
                 })
-                .Return(a => a.As<dynamic>())
+                .Return(a => a.As<Korisnik>())
                 .ResultsAsync;
 
                 bool created = result.Single()._created;
@@ -66,9 +66,9 @@ namespace Library.DBManager.Providers
                 var client = await _service.GetClientAsync();
                 var result = await client.Cypher
                     .Match("(k:Korisnik)")
-                    .Where("k.username IS NOT NULL AND k.name =~ $username")
+                    .Where("k.username IS NOT NULL AND k.username =~ $username")
                     .WithParam("username",login.Username)
-                    .Return(a => a.As<Korisnik>())
+                    .Return(k => k.As<Korisnik>())
                     .ResultsAsync;
                 
                 var user = result.FirstOrDefault();
@@ -118,7 +118,7 @@ namespace Library.DBManager.Providers
                     .Match("(k:Korisnik)")
                     .Where("k.username IS NOT NULL AND k.username =~ $username")
                     .WithParam("username", username)
-                    .Return(a => a.As<Korisnik>())
+                    .Return(k => k.As<Korisnik>())
                     .ResultsAsync;
 
                 var user = result.FirstOrDefault();
@@ -173,7 +173,7 @@ namespace Library.DBManager.Providers
                 var client = await _service.GetClientAsync();
                 var result = await client.Cypher
                     .Match("(k:Korisnik)")
-                    .Return(a => a.As<Korisnik>())
+                    .Return(k => k.As<Korisnik>())
                     .ResultsAsync;
 
                 List<KorisnikDTO> lista = new List<KorisnikDTO>();
@@ -187,8 +187,7 @@ namespace Library.DBManager.Providers
                         Lastname = item.Lastname,
                         Email = item.Email,
                         Number = item.Number
-                    }
-                        );
+                    });
                 }
 
                 return lista;
@@ -206,9 +205,9 @@ namespace Library.DBManager.Providers
                 var client = await _service.GetClientAsync();
                 var result = await client.Cypher
                     .Match("(k:Korisnik)")
-                    .Where("k.username IS NOT NULL AND k.name =~ $username")
+                    .Where("k.username IS NOT NULL AND k.username =~ $username")
                     .WithParam("username", username)
-                    .Return(a => a.As<Korisnik>())
+                    .Return(k => k.As<Korisnik>())
                     .ResultsAsync;
 
                 var u = result.FirstOrDefault();
@@ -232,12 +231,12 @@ namespace Library.DBManager.Providers
                         Message = "Lozinka se ne podudara"
                     };
                 }
-
+                var Password = BCrypt.Net.BCrypt.HashPassword(newPassword, workFactor: 11);
                 var updated = await client.Cypher
                     .Match("(u:Korisnik {username: $username})")
                     .WithParam("username", username)
                     .Set("u.password = $password")
-                    .WithParam("password", newPassword)
+                    .WithParam("password", Password)
                     .Return<int>("count(u)")
                     .ResultsAsync;
 

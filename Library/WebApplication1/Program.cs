@@ -17,6 +17,8 @@ builder.Services.AddScoped<KorisnikProvider>();
 builder.Services.AddScoped<BibliotekaProvider>();
 builder.Services.AddScoped<KnjigaProvider>();
 builder.Services.AddScoped<AutorProvider>();
+builder.Services.AddScoped<IznajmljivanjeProvider>();
+builder.Services.AddScoped<PosedovanjeProvider>();
 
 builder.Services.AddCors(options =>
 {
