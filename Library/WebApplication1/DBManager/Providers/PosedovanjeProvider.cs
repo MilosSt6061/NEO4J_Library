@@ -153,7 +153,7 @@ namespace Library.DBManager.Providers
                 var result = await client.Cypher
                     .Match("(l:Biblioteka {id: $lid})")
                     .Match("(b:Knjiga {id: $bid})")
-                    .Match("(l)-[r:Poseduje]->(b)")
+                    .Match("(l)-[r:POSEDUJE]->(b)")
                     .Set("r.br_primeraka = $br_primeraka, r.br_iz = $br_iz")
                     .WithParams(new
                     {
@@ -191,7 +191,7 @@ namespace Library.DBManager.Providers
                 await client.Cypher
                     .Match("(l:Biblioteka {id: $lid})")
                     .Match("(b:Knjiga {id: $bid})")
-                    .Match("(l)-[r:Poseduje]->(b)")
+                    .Match("(l)-[r:POSEDUJE]->(b)")
                     .WithParams(new
                     {
                         lid = bid,

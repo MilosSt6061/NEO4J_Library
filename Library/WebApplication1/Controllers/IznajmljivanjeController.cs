@@ -61,11 +61,11 @@ namespace Library.Controllers
         }
 
         [HttpPut("Rent_edit")]
-        public async Task<IActionResult> Editrent(string username, string id)
+        public async Task<IActionResult> Editrent(string username, string id, string bookid)
         {
             try
             {
-                var response = await IznajmljivanjeProvider.EditIznajmljivanje(username,id);
+                var response = await IznajmljivanjeProvider.EditIznajmljivanje(username,id,bookid);
                 if (response.Success == false)
                 {
                     return BadRequest(response.Message);
