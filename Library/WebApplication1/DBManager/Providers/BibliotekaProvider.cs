@@ -152,5 +152,26 @@ namespace Library.DBManager.Providers
                 return null;
             }
         }
+         
+        public async Task<List<string>> GetLibrariesByBook(string nazivKnjige)
+        {
+            try
+            {
+                var client = await _service.GetClientAsync();
+
+                var result = await client.Cypher
+                    .Match("(b:Biblioteka)-[:POSEDUJE]->(k:Knjiga)")
+                    .Where("toLower(k.naziv) = toLower($naziv)")
+                    .WithParam("naziv", nazivKnjige) 
+                    .Return<string>("b.name") 
+                    .ResultsAsync;
+
+                return result.ToList();
+            }
+            catch (Exception ex)
+            {
+                return new List<string>(); 
+            }
+        }
     }
 }

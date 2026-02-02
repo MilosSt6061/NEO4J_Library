@@ -91,7 +91,7 @@ namespace Library.Controllers
             }
         }
 
-        [HttpPut("EditBookInLibrary/{bid}/{kid}")]
+        [HttpDelete("DeleteBookInLibrary/{bid}/{kid}")]
         public async Task<IActionResult> DeletePosedovanje(string bid, string kid)
         {
             try

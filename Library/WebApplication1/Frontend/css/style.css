@@ -1,0 +1,647 @@
+/* --- OSNOVA I FONTOVI --- */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap');
+
+* { box-sizing: border-box; }
+
+:root {
+    --ink-color: #2c1b18;       
+    --paper-color: #f4e4bc;     
+    --wood-dark: #3e2723;       
+    --wood-light: #5d4037;      
+    --gold-accent: #d4af37;     
+}
+
+body {
+    margin: 0; padding: 0;
+    font-family: 'Lora', serif;
+    background-color: var(--paper-color);
+    color: var(--ink-color);
+    overflow-x: hidden;
+}
+
+/* --- HEADER --- */
+.library-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-image: url('../slike/bar.jpg');
+    position: fixed;
+    width: 100%; top: 0; z-index: 100;
+    border-bottom: 5px solid var(--wood-light);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.header-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    color: var(--wood-dark);
+    text-shadow: 1px 1px 1px #000;
+    letter-spacing: 2px;
+    display: flex; align-items: center; gap: 10px;
+}
+
+.nav-link {
+    background-color: rgba(244, 228, 188, 0.3); 
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); 
+    border: 2px solid var(--wood-dark);
+    border-radius: 10px;    
+    color: var(--wood-dark); 
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    font-size: 1.1rem;   
+    letter-spacing: 1px;
+    padding: 8px 15px; margin-left: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    background-color: rgba(244, 228, 188, 0.7); 
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* --- GLAVNI SADRŽAJ --- */
+.library-main {
+    background-image: url('../slike/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+    background-repeat: no-repeat;
+    margin-top: 0;        
+    padding-top: 150px;   
+    min-height: 100vh; 
+}
+
+/* --- HEADER BAR (NASLOV + FILTER) --- */
+.header-bar {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto; margin-right: auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    font-family: 'Cinzel', serif;
+    color: var(--wood-dark);
+    font-size: 2.5rem;
+    margin: 0;
+    border-bottom: 3px double var(--wood-dark);
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.filter-container-right {
+    position: absolute;
+    right: 20px;
+    bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-label {
+    font-weight: bold;
+    color: var(--wood-dark);
+    display: none; 
+    font-size: 25px;
+}
+@media (min-width: 768px) { .filter-label { display: inline; } }
+
+.vintage-select {
+    margin-right: 20px;
+    padding: 8px 15px;
+    font-size: 1rem;
+    font-family: 'Lora', serif;
+    background-color: var(--paper-color);
+    border: 1px solid var(--wood-light);
+    border-radius: 5px;
+    color: var(--wood-dark);
+    cursor: pointer;
+    outline: none;
+    min-width: 180px;
+}
+
+/* --- GRID SISTEM (POPRAVLJENO) --- */
+#grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Automatski popunjava red */
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* --- KARTICE KNJIGA --- */
+.book-card-dashboard {
+    background-color: var(--paper-color);
+    border: 1px solid var(--wood-light);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    height: 100%; /* Da sve budu iste visine */
+}
+
+.book-card-dashboard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    border-color: var(--wood-dark);
+}
+
+.placeholder-container {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    position: relative; 
+    background-image: url('../slike/vintage_cover.png');
+    background-size: cover;
+    background-position: center;
+    border-bottom: 3px solid var(--wood-light);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.placeholder-title-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex; justify-content: center; align-items: center;
+    text-align: center;
+    color: #d4af37; 
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-shadow: 2px 2px 4px #000; 
+    padding: 20px;
+    background: rgba(0,0,0,0.3); /* Tamni sloj da se tekst bolje vidi */
+}
+
+.book-title {
+    padding: 10px;
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    color: var(--wood-dark);
+    margin: 0;
+}
+
+/* --- KARTICA BIBLIOTEKE --- */
+.library-card {
+    background-color: #fff;
+    border: 2px solid var(--wood-light);
+    border-radius: 8px;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    display: flex; flex-direction: column; justify-content: space-between;
+    transition: transform 0.2s ease;
+    /* Brišemo fiksnu širinu da bi se uklopilo u grid */
+    min-height: 250px;
+}
+.library-card:hover { transform: translateY(-5px); }
+
+.lib-card-header {
+    background-color: var(--wood-light);
+    color: var(--paper-color);
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Cinzel', serif;
+}
+.lib-card-body { padding: 20px; text-align: center; }
+.lib-icon-large { font-size: 3rem; color: #8d6e63; margin-bottom: 10px; }
+.lib-address-text { font-size: 1rem; font-weight: bold; color: var(--wood-dark); }
+
+.card-actions {
+    padding: 10px;
+    background: #f5f5f5;
+    border-top: 1px solid #e0e0e0;
+    display: flex; flex-direction: column; gap: 8px;
+}
+
+/* --- MODAL --- */
+.modal-overlay {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(44, 27, 24, 0.85);
+    z-index: 200;
+    display: flex; justify-content: center; align-items: center;
+    backdrop-filter: blur(3px);
+}
+
+.parchment-modal {
+    background-color: var(--paper-color);
+    border: 1px solid var(--wood-light);
+    padding: 30px; /* Smanjen padding */
+    width: 90%;
+    max-width: 800px; /* Ograničena širina */
+    max-height: 90vh; /* Da ne ispadne sa ekrana */
+    overflow-y: auto; /* Skrol ako je visoko */
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    position: relative;
+    border-radius: 4px;
+}
+
+.modal-layout {
+    display: flex;
+    flex-direction: row; 
+    flex-wrap: nowrap; 
+    gap: 30px;
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+}
+
+.modal-image-container {
+    width: 240px !important;
+    height: 360px !important; 
+    flex-shrink: 0;        
+    border: 5px solid #fff;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 2px;
+}
+
+.modal-info-container {
+    flex-grow: 1;    
+    min-width: 0;      
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-title {
+    margin: 0;
+    color: var(--wood-dark);
+    font-size: 2rem;
+    line-height: 1.2;
+    font-family: 'Cinzel', serif;
+}
+
+.modal-author {
+    font-size: 1.3rem; /* Povećan font za pisca */
+    font-weight: bold;
+    color: #5d4037;
+    margin: 10px 0 5px 0;
+    font-family: 'Lora', serif;
+    border-bottom: 1px solid var(--wood-light);
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+.modal-meta {
+    font-style: italic;
+    color: #795548;
+    margin-bottom: 15px;
+}
+
+.modal-control-box {
+    background: rgba(0,0,0,0.05);
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #d7ccc8;
+    margin-top: 20px;
+}
+
+/* --- DUGMAD --- */
+.vintage-btn {
+    background: var(--wood-dark);
+    color: var(--paper-color);
+    border: 2px solid var(--wood-dark);
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-family: 'Cinzel', serif; 
+    font-size: 0.9rem;
+    cursor: pointer; transition: 0.3s;
+}
+.vintage-btn:hover { background: transparent; color: var(--wood-dark); }
+.vintage-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-join { background-color: #2e7d32; border-color: #1b5e20; color: white; }
+.btn-join:hover { background-color: #1b5e20; color: white; }
+
+.close-btn {
+    position: absolute; top: 10px; right: 15px;
+    font-size: 2rem; cursor: pointer; color: var(--wood-dark);
+    background: none; border: none;
+    z-index: 10;
+}
+
+/* Helper za stanje */
+.stock-green { color: #2e7d32; font-weight: bold; font-size: 1.2rem; }
+.stock-red { color: #c62828; font-weight: bold; font-size: 1.2rem; }
+
+
+   /* PROFIL SEKCIJA */
+
+.profile-paper {
+    background-color: #fff;
+    border: 1px solid var(--wood-light);
+    padding: 30px 40px; /* Smanjen padding */
+    max-width: 480px;   /* Smanjena širina */
+    margin: 30px auto;  /* Smanjena margina gore/dole */
+    border-radius: 5px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    position: relative;
+    text-align: left;
+}
+
+/* Naslov unutar papira */
+.profile-header-title {
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    margin-top: 0;
+    margin-bottom: 15px; /* Smanjen razmak */
+    color: var(--wood-dark);
+    font-size: 1.6rem;   /* Malo manji font */
+    letter-spacing: 2px;
+}
+
+/* Linija razdvajanja */
+.profile-divider {
+    height: 2px;
+    background-image: linear-gradient(to right, transparent, var(--wood-light), transparent);
+    margin: 20px 0; /* Smanjen razmak */
+    border: none;
+}
+
+/* Grupa (Labela + Input) */
+.form-group {
+    margin-bottom: 15px; /* Smanjen razmak između polja */
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    color: var(--wood-dark);
+    margin-bottom: 5px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem; /* Malo manji font */
+}
+
+/* Stil inputa */
+.quill-input {
+    width: 100%;
+    padding: 5px 0; /* Smanjen padding */
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed var(--wood-light);
+    color: var(--ink-color);
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.quill-input:focus {
+    outline: none;
+    border-bottom: 2px solid var(--wood-dark);
+}
+
+.active-input {
+    border-bottom: 2px solid var(--wood-dark) !important;
+    background-color: rgba(244, 228, 188, 0.2);
+    border-radius: 4px 4px 0 0;
+    padding-left: 5px;
+}
+
+/* Dugme za otvaranje lozinke */
+.profile-toggle-btn {
+
+    width: 100%;
+    text-align: center;
+    background: none;
+    border: 1px 1px 1px;
+    border-radius: 10px;
+    color: var(--wood-dark);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.profile-toggle-btn:hover {
+    color: #8d6e63;
+    padding-left: 10px;
+}
+
+/* Sekcija za lozinku */
+.password-box {
+    margin-top: 10px;
+    background: rgba(0,0,0,0.03);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #d7ccc8;
+    animation: fadeIn 0.3s ease-in;
+}
+
+/* Akcije */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.error-msg {
+    color: #c62828;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    min-height: 20px;
+}
+
+.success-msg { color: #2e7d32; font-weight: bold; }
+
+/* --- ZVEZDICE ZA OCENJIVANJE --- */
+.rating-stars {
+    font-size: 2rem;
+    color: #ccc; /* Siva boja za prazne */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.star {
+    transition: color 0.2s;
+}
+
+/* Klasa koja se dodaje JS-om kada je zvezda aktivna */
+.star.active {
+    color: #d4af37; 
+}
+
+/* Hover efekat */
+.star:hover,
+.star:hover ~ .star {
+    color: #d4af37;
+}
+/* --- PRIKAZ OCENA --- */
+.reviews-container {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 15px;
+    border-top: 1px solid var(--wood-light);
+    padding-top: 10px;
+}
+
+.review-item {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: var(--wood-dark);
+    font-weight: bold;
+}
+
+.review-stars { color: #d4af37; }
+.review-comment { font-style: italic; color: #5d4037; font-size: 0.95rem; }
+
+/*  HOME PAGE (SPECIFIČNI STILOVI) */
+
+/* Header samo za Home stranu (sa dugmićima za prijavu) */
+.home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-image: url('../slike/bar.jpg');
+    position: fixed;
+    width: 100%; top: 0; z-index: 100;
+    border-bottom: 5px solid var(--wood-light);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.home-nav-btn {
+    background-color: rgba(244, 228, 188, 0.9);
+    border: 2px solid var(--wood-dark);
+    border-radius: 5px;
+    padding: 8px 15px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Cinzel', serif;
+    color: var(--wood-dark);
+    transition: 0.3s;
+}
+.home-nav-btn:hover { background-color: #fff; transform: translateY(-2px); }
+
+/* Polica za knjige (Slajder) */
+.bookshelf-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    background-image: url('../slike/bar.jpg'); 
+    padding: 40px 20px;
+    border-top: 8px solid var(--wood-light);
+    border-bottom: 8px solid var(--wood-light);
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.7);
+    margin: 20px auto;
+    max-width: 100%;
+    overflow: hidden; 
+}
+
+.bookshelf-container {
+    width: 100%;
+    max-width: 1200px;
+    overflow: hidden; 
+}
+
+.bookshelf-strip {
+    display: flex;
+    gap: 30px;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    padding: 10px 0;
+}
+
+/* Kartica knjige specifično za slajder */
+.book-card-home {
+    min-width: 200px;
+    width: 200px;
+    background-color: var(--paper-color);
+    border: 1px solid var(--wood-light);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.book-card-home:hover { transform: translateY(-10px) scale(1.02); }
+
+/* Dugmići za skrol */
+.scroll-arrow {
+    background: rgba(0,0,0,0.5);
+    color: var(--gold-accent);
+    border: 2px solid var(--gold-accent);
+    border-radius: 50%;
+    width: 50px; height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: 0.2s;
+    z-index: 10;
+}
+.scroll-arrow:hover { background: var(--gold-accent); color: #000; }
+
+.modal-description-box {
+    max-height: 250px;      
+    min-height: 150px;       
+    overflow-y: auto;        
+    padding-right: 10px;
+    margin-bottom: 20px;
+    text-align: justify;
+    line-height: 1.6;
+    border-right: 1px solid transparent; 
+}
+
+.modal-description-box::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-description-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+.modal-description-box::-webkit-scrollbar-thumb {
+    background-color: var(--wood-light);
+    border-radius: 10px;
+}
+@media (max-width: 768px) {
+    .modal-layout {
+        flex-direction: column; /* Slika gore, tekst dole */
+        align-items: center;
+    }
+    .modal-image-container {
+        margin-bottom: 20px;
+    }
+    .modal-info-container {
+        width: 100%;
+    }
+}

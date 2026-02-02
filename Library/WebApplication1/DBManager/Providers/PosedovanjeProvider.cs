@@ -21,7 +21,11 @@ namespace Library.DBManager.Providers
                 var result = await client.Cypher
                     .Match("(l:Biblioteka {id: $bid})")
                     .Match("(b:Knjiga {id: $kid})")
-                    .Create("(l)-[r:POSEDUJE {br_primeraka: $br_primeraka, br_iz: $br_iz}]->(b)")
+                    .Merge("(l)-[r:POSEDUJE]->(b)")
+                    .OnCreate()
+                    .Set("r.br_primeraka = $br_primeraka, r.br_iz = $br_iz")
+                    .OnMatch()
+                    .Set("r.br_primeraka = $br_primeraka")
                     .WithParams(new
                     {
                         bid = pos.bid,

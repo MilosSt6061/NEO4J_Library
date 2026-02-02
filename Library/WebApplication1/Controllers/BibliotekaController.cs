@@ -93,5 +93,11 @@ namespace Library.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet("ZaKnjigu/{nazivKnjige}")]
+        public async Task<IActionResult> GetLibsForBook(string nazivKnjige)
+        {
+            var libs = await bibliotekaProvider.GetLibrariesByBook(nazivKnjige);
+            return Ok(libs);
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace Library.Controllers
         }
 
         [HttpGet("VratiKorisnikeBiblioteke/{bibliotekaId}")]
-        public async Task<IActionResult> VratiAutoreKnjige(string bibliotekaId)
+        public async Task<IActionResult> VratiKorisnikeBiblioteke(string bibliotekaId)
         {
             try
             {
